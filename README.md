@@ -154,6 +154,8 @@ Through this project, I gained practical experience with:
 
 ---
 
-**👨‍💻 Author**
+## 👨‍💻 Author
 
-[GitHub Repository](https://github.com/Aditya-73619/Inverted-Search)
+**Aditya Gupta**
+
+This project helped me strengthen my understanding of C programming, hash tables, linked lists, dynamic memory allocation, and file handling by implementing an inverted indexing system from scratch.
