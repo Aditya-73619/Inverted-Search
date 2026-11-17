@@ -26,6 +26,8 @@ STATUS display_database(mainnode_t* arr[]);
 
 STATUS search_database(mainnode_t* arr[]);
 
+STATUS save_database(mainnode_t* arr[]);
+
 
 
 

@@ -273,3 +273,59 @@ STATUS search_database(mainnode_t* arr[])
 
     return e_success;
 }
+
+
+STATUS save_database(mainnode_t* arr[])
+{
+    char db_filename[FNAME_SIZE];
+
+    printf("\nEnter the Database File name: ");
+    scanf("%s",db_filename);
+
+    // Check .txt extension
+    char* extn = strchr(db_filename,'.');
+
+    if(extn == NULL || strcmp(extn,".txt") != 0){
+        printf("Error: Database file must be .txt file\n");
+        return e_failure;
+    }
+
+    // open the file in read mode
+    FILE* fptr = fopen(db_filename, "w");
+
+    if(fptr == NULL){
+        printf("Error: Unable to open Database file\n");
+        return e_failure;
+    }
+
+
+    for(int i=0;i<27;i++)
+    {
+        mainnode_t* m_temp = arr[i];
+
+        while(m_temp)
+        {
+            fprintf(fptr, "#%d;%s;%d;" , i, m_temp->word,  m_temp->file_count);
+
+
+            subnode_t* s_temp = m_temp->sublink;
+
+            while(s_temp)
+            {
+                fprintf(fptr, "%s;%d;" ,s_temp->filename, s_temp->word_count);
+
+                s_temp = s_temp->link;
+            }
+
+            fprintf(fptr, "#\n");
+
+            m_temp = m_temp->link;
+        }
+    }
+
+    fclose(fptr);
+
+    printf("Database saved Successfully\n");
+
+    return e_success;
+}

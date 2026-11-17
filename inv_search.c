@@ -133,7 +133,7 @@ STATUS menu(filename_t** f_head, mainnode_t* arr[])
                     break;
             case 4: printf("Update Database\n");
                     break;
-            case 5: printf("Save Database\n");
+            case 5: save_database(arr);
                     break;
             case 6: printf("Exiting...\n");
                     return e_success;
