@@ -28,6 +28,8 @@ STATUS search_database(mainnode_t* arr[]);
 
 STATUS save_database(mainnode_t* arr[]);
 
+STATUS update_database(filename_t** f_head, mainnode_t* arr[]);
+
 
 
 

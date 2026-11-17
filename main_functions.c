@@ -182,6 +182,7 @@ STATUS create_database(filename_t* f_head, mainnode_t* arr[])
         f_temp = f_temp->link;
     }
 
+    printf("Database created Successfully\n");
     return e_success;    
 }
 
@@ -327,5 +328,171 @@ STATUS save_database(mainnode_t* arr[])
 
     printf("Database saved Successfully\n");
 
+    return e_success;
+}
+
+
+STATUS update_database(filename_t** f_head, mainnode_t* arr[])
+{
+    char db_filename[FNAME_SIZE];
+    
+    printf("\nEnter the Database filename: ");
+    scanf("%s",db_filename);
+
+    // Extension must be .txt
+    char* extn = strchr(db_filename,'.');
+
+    if(extn == NULL || strcmp(extn,".txt") != 0){
+        printf("Error: Database file must be .txt file\n");
+        return e_failure;
+    }
+
+
+    // File exist and empty or not validation
+    FILE* fptr = fopen(db_filename,"r");
+
+    if(fptr == NULL){
+        printf("Error: Database file doesnot exist\n");
+        return e_failure;
+    }
+
+    if(fgetc(fptr) == EOF){
+        printf("Error: Database file is empty\n");
+        fclose(fptr);
+        return e_failure;
+    }
+
+    fseek(fptr,-1,SEEK_CUR);
+
+    // Check First character
+    char ch;
+    fscanf(fptr, "%c", &ch);
+
+    if(ch != '#'){
+        printf("Error: Invalid database file due to starting character\n");
+        fclose(fptr);
+        return e_failure;
+    }
+
+    // Check last character
+    fseek(fptr,-2,SEEK_END);
+    fscanf(fptr,"%c", &ch);
+
+    if(ch != '#'){
+        printf("Error: Invalid database file due to last character\n");
+        fclose(fptr);
+        return e_failure;
+    }
+
+
+    rewind(fptr);                               // offset back to beginning
+
+
+    // Extract data from database
+    int index, file_count;
+    char word[WORD_SIZE];
+
+    while(!feof(fptr))
+    {
+        // main node info
+        if(fscanf(fptr, " #%d;%[^;];%d;" ,&index,word,&file_count) != 3)
+            break;
+
+        // Create main node
+        mainnode_t* new_main = NULL;
+
+        if(create_main_node(&new_main,word) == e_failure){
+            printf("Error: Unable to create main node\n");
+            fclose(fptr);
+            return e_failure;
+        }
+
+        new_main->file_count = file_count;
+
+
+        // Subnode info
+        subnode_t* s_temp = NULL;
+        
+        for(int i=0;i<file_count;i++){
+            char filename[FNAME_SIZE];
+            int word_count;
+
+            if(fscanf(fptr, "%[^;];%d;" ,filename,&word_count) != 2)
+                return e_failure;
+
+
+
+            // Remove Duplicate file_node from file LL
+            filename_t* f_temp = *f_head;
+            filename_t* f_prev = NULL;
+
+            while(f_temp){
+                if(strcmp(f_temp->filename,filename) == 0){
+                    // If first node
+                    if(f_prev == NULL)
+                        *f_head = (*f_head)->link;
+                    
+                    // If mid or last node
+                    else
+                        f_prev->link = f_temp->link;
+
+                    free(f_temp);
+                    break;
+                }
+
+                f_prev = f_temp;
+                f_temp = f_temp->link;
+            }
+
+
+
+            // Create sub node
+            subnode_t* new_sub = NULL;
+
+            if(create_sub_node(&new_sub,filename) == e_failure){
+                printf("Error: Unable to create sub node\n");
+                fclose(fptr);
+                return e_failure;
+            }
+
+            new_sub->word_count = word_count;
+
+
+            // Link subnode
+            if(new_main->sublink == NULL){
+                new_main->sublink = new_sub;
+                s_temp = new_sub;
+            }
+            else{
+                s_temp->link = new_sub;
+                s_temp = s_temp->link;
+            }
+        }
+
+        // consuming # and \n at last in line
+        fscanf(fptr, "#\n");
+
+
+        if(arr[index] == NULL){
+            arr[index] = new_main;
+        }
+        else{
+            mainnode_t* m_temp = arr[index];
+
+            while(m_temp->link != NULL)
+                m_temp = m_temp->link;
+
+            m_temp->link = new_main;
+        }
+    }
+
+    fclose(fptr);
+
+    if(*f_head != NULL){
+        if(create_database(*f_head,arr) == e_failure)
+            return e_failure;
+    }
+
+    printf("Database updated Successfully\n");
     return e_success;
 }

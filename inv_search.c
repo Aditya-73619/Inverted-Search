@@ -1,6 +1,7 @@
 #include "types.h"
 #include "inv_search.h"
 
+int db_flag = 0;
 
 STATUS start_program(int argc,char * argv[], filename_t** f_head, mainnode_t* arr[])
 {
@@ -125,18 +126,34 @@ STATUS menu(filename_t** f_head, mainnode_t* arr[])
 
         switch(choice)
         {
-            case 1: create_database(*f_head,arr);
+            case 1: if(db_flag == 1){
+                        printf("Error: Database already created/updated\n");
+                        break;
+                    }
+                    if(create_database(*f_head, arr) == e_success)
+                        db_flag = 1;
                     break;
+
             case 2: display_database(arr);
                     break;
+
             case 3: search_database(arr);
                     break;
-            case 4: printf("Update Database\n");
+
+            case 4: if(db_flag == 1){
+                        printf("Error: Database already created/updated\n");
+                        break;
+                    }
+                    if(update_database(f_head, arr) == e_success)
+                        db_flag = 1;
                     break;
+
             case 5: save_database(arr);
                     break;
+
             case 6: printf("Exiting...\n");
                     return e_success;
+
             default: printf("Invalid Choice, Please try again\n");
         }
     }

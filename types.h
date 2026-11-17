@@ -11,6 +11,7 @@
 
 #define WORD_NOT_FOUND -1
 
+
 typedef enum{
     e_success,
     e_failure

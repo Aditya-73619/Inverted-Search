@@ -1,6 +1,0 @@
-#0;am;1;file2.txt;1;#
-#7;hi;2;file1.txt;3;file2.txt;1;#
-#7;hello;1;file1.txt;1;#
-#7;how;1;file1.txt;1;#
-#8;i;1;file2.txt;1;#
-#19;there;1;file2.txt;1;#

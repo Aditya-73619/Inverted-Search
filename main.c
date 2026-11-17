@@ -16,17 +16,5 @@ int main(int argc, char* argv[])
     }
 
 
-
-
-    // print list
-    // filename_t* temp = f_head;
-
-    // while(temp){
-    //     printf("%s->",temp->filename);
-    //     temp = temp->link;
-    // }
-    // printf("\n");
-
-
     return 0;
 }
