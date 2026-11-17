@@ -154,21 +154,6 @@ Through this project, I gained practical experience with:
 
 ---
 
-## 🧠 Concepts Practiced
-
-- Hash Tables and Hashing Techniques
-- Singly Linked Lists and Nested Linked Lists
-- Dynamic Memory Allocation (`malloc()` and `free()`)
-- File Handling and File Operations
-- String Manipulation and Comparison
-- Command-Line Argument Validation
-- Structures and Enumerations
-- Database Creation and Management
-- Searching and Indexing Techniques
-- File Data Serialization and Deserialization
-- Modular Programming in C
-- Error Detection and Handling
-
 
 ## 👨‍💻 Author
 
