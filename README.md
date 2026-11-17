@@ -1,6 +1,6 @@
 # Inverted Search in C
 
-## Overview
+## 📌 Overview
 
 Inverted Search is a C-based application that implements an inverted indexing system to efficiently search for words across multiple text files.
 
@@ -8,7 +8,7 @@ Instead of scanning every file whenever a search is performed, the program creat
 
 The project uses **Hash Tables and Linked Lists** to organize and retrieve data efficiently, demonstrating how basic search engine indexing works.
 
-## Features
+## 🚀 Features
 
 - **File Validation:** Validates input files based on file extension, existence, duplicate entries, and empty files.
 - **Create Database:** Builds an inverted index by reading words from multiple text files.
@@ -47,7 +47,7 @@ For example, if the word `hello` occurs in three files, the database stores:
 
 This allows the program to retrieve the files containing a particular word without scanning all the original files again.
 
-## Project Structure
+## 📂 Project Structure
 
 | File | Description |
 |---|---|
