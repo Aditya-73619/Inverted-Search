@@ -154,6 +154,6 @@ Through this project, I gained practical experience with:
 
 ---
 
-**Developed by Aditya Gupta**
+**👨‍💻 Author**
 
 [GitHub Repository](https://github.com/Aditya-73619/Inverted-Search)
