@@ -24,6 +24,8 @@ STATUS create_sub_node(subnode_t** new_sub, char filename[]);
 
 STATUS display_database(mainnode_t* arr[]);
 
+STATUS search_database(mainnode_t* arr[]);
+
 
 
 

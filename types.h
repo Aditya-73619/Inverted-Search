@@ -9,6 +9,8 @@
 #define WORD_SIZE 30
 #define HASH_SIZE 27
 
+#define WORD_NOT_FOUND -1
+
 typedef enum{
     e_success,
     e_failure

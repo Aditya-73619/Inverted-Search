@@ -36,7 +36,7 @@ STATUS validate_files(int argc, char* argv[], filename_t** f_head)
             return e_failure;
         }
 
-        
+
         // Check file existence
         FILE* fptr = fopen(argv[i],"r");
 
@@ -129,7 +129,7 @@ STATUS menu(filename_t** f_head, mainnode_t* arr[])
                     break;
             case 2: display_database(arr);
                     break;
-            case 3: printf("Search Database\n");
+            case 3: search_database(arr);
                     break;
             case 4: printf("Update Database\n");
                     break;

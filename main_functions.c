@@ -217,3 +217,59 @@ STATUS display_database(mainnode_t* arr[])
 
     return e_success;
 }
+
+STATUS search_database(mainnode_t* arr[])
+{
+    char word[WORD_SIZE];
+
+    // Input word from user
+    printf("\nEnter the word to search: ");
+    scanf("%s",word);
+
+
+    // Calculating the index
+    char first_char = word[0];
+    int index;
+
+    if(first_char >= 'a' && first_char <= 'z')
+        index = first_char - 'a';
+    else if(first_char >= 'A' && first_char <= 'Z')
+        index = first_char - 'A';
+
+
+    /* Searching index in hash table */
+
+    if(arr[index] == NULL){                              // index is NULL
+        printf("\nWord Not Found\n");
+        return e_failure;
+    }
+    
+    // Index is not NULL, searching
+    mainnode_t* m_temp = arr[index];
+
+    while(m_temp)
+    {
+        if(strcmp(m_temp->word,word) == 0)
+            break;
+
+        m_temp = m_temp->link;
+    }
+
+    if(m_temp == NULL){
+        printf("\nWord Not Found\n");
+        return e_failure;
+    }
+
+    printf("\nWord %s is present in %d files\n",word,m_temp->file_count);
+
+
+    subnode_t* s_temp = m_temp->sublink;
+
+    while(s_temp){
+        printf("In %s -> %d times\n",s_temp->filename,s_temp->word_count);
+        
+        s_temp = s_temp->link;
+    }
+
+    return e_success;
+}
